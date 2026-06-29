@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Api\UserModel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+use App\Models\Api\SettingsModel;
 
 class UserController extends Controller
 {
@@ -58,6 +62,30 @@ class UserController extends Controller
         $request->user()->token()->revoke();
        return response()->json(['message' => 'Logout Successful'],200);
     }
+
+    public function checksession(Request $request){
+        $user = auth()->user();
+        if(!$user){
+            return response()->json(['message' => 'Invalid Login or Session Expired', 'is_logged_in' => false, 'user_exists'=>false],401);
+        }
+        $user_data =UserModel::find($user->id);
+        if(!$user_data){
+            return response()->json(['message' => 'User data does not exists' , 'is_logged_in' => false, 'user_exists'=>false],404);
+        }
+        
+        if($user_data->is_blocked || $user_data->status == 'inactive'){
+            return response()->json(['message' => 'User data does not exists' , 'is_logged_in' => false, 'user_exists'=>false],404);
+        }
+
+        $settings=SettingsModel::first();
+          if($settings->app_mode == 'active'|| $settings-> maintenance_mode == 'active'){
+            return response()->json(['message' => 'App is under maintence' , 'is_logged_in' => false, 'user_exists'=>true , 'maintenance_mode' => true],503);
+        }
+
+       return response()->json(['message'=> 'Session valid. User logged in', 'is_logged_in' =>true, 'user_exists'=>'true', 'user_blocked'=>false, 'user_data' =>[$user_data], 'settings' =>$settings],200);
+    }
+
+
 
 
 }

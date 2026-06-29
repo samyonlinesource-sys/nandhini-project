@@ -17,6 +17,8 @@ class UserModel extends Authenticatable
         'email',
         'username',
         'password',
+        'status',
+        'user_level'
     ];
 
     protected $hidden = [
