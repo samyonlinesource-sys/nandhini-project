@@ -11,10 +11,21 @@ Route::get('/login', [UserController::class, 'login']);
 
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('/profile',[UserController::class,'profile']);
+    // Route::get('/profile',[UserController::class,'profile']);
     Route::post('/logout',[UserController::class,'logout']);
     Route::post('/checksession', [UserController::class , 'checksession']);
 
+});
+
+Route::middleware(['auth:api','nandhini'])->prefix('admin')->name('admin')->group(function () {
+   Route::get('/profile',[UserController::class,'profile']);
+    // Route::post('/logout',[UserController::class,'logout']);
+    // Route::post('/checksession', [UserController::class , 'checksession']);
+    Route::get('/dashboard',function(){
+        return response()->json(['message' => 'hii admin'],200);
+        
+    });
+     Route::get('/profile',[UserController::class,'profile']);
 });
 
 Route::post('/store', [SettingsController::class, 'store']);
