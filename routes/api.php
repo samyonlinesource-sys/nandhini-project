@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SettingsController;
+use App\Http\Controllers\Api\DashboardController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -11,7 +12,7 @@ Route::get('/login', [UserController::class, 'login']);
 
 
 Route::middleware('auth:api')->group(function () {
-    // Route::get('/profile',[UserController::class,'profile']);
+    Route::get('/profile',[UserController::class,'profile']);
     Route::post('/logout',[UserController::class,'logout']);
     Route::post('/checksession', [UserController::class , 'checksession']);
 
@@ -21,10 +22,9 @@ Route::middleware(['auth:api','nandhini'])->prefix('admin')->name('admin')->grou
    Route::get('/profile',[UserController::class,'profile']);
     // Route::post('/logout',[UserController::class,'logout']);
     // Route::post('/checksession', [UserController::class , 'checksession']);
-    Route::get('/dashboard',function(){
-        return response()->json(['message' => 'hii admin'],200);
-        
-    });
+     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+        Route::post('/dashboard/show', [DashboardController::class, 'show']);
      Route::get('/profile',[UserController::class,'profile']);
 });
 
