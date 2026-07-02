@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\SettingsController;
+use App\Http\Controllers\Api\DashboardController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +13,7 @@ Route::get('/login', [UserController::class, 'login']);
 
 
 Route::middleware('auth:api')->group(function () {
-    // Route::get('/profile',[UserController::class,'profile']);
+    Route::get('/profile',[UserController::class,'profile']);
     Route::post('/logout',[UserController::class,'logout']);
     Route::post('/checksession', [UserController::class , 'checksession']);
 
@@ -24,6 +25,12 @@ Route::post('/update', [SettingsController::class, 'update']);
 
 Route::middleware(['auth:api','nandhini'])->prefix('admin')->name('admin')->group(function () {
    Route::get('/profile',[UserController::class,'profile']);
+
+     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+        Route::post('/dashboard/show', [DashboardController::class, 'show']);
+     Route::get('/profile',[UserController::class,'profile']);
+});
 
    //BrandController CRUD
    Route::get('/brand',[BrandController::class,'index']);
