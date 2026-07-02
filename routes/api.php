@@ -30,11 +30,11 @@ Route::middleware(['auth:api','nandhini'])->prefix('admin')->name('admin')->grou
 
         Route::post('/dashboard/show', [DashboardController::class, 'show']);
      Route::get('/profile',[UserController::class,'profile']);
-});
-
-   //BrandController CRUD
+        //BrandController CRUD
    Route::get('/brand',[BrandController::class,'index']);
    Route::post('/brand/create',[BrandController::class,'create']);
    Route::post('/brand/update',[BrandController::class,'update']);
-
 });
+
+  
+
