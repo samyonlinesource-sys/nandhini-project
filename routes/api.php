@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
+
 
 
 use Illuminate\Http\Request;
@@ -39,13 +41,20 @@ Route::middleware(['auth:api','nandhini'])->prefix('admin')->name('admin')->grou
    Route::post('/brand/delete',[BrandController::class,'delete']);
     Route::post('/brand/restore',[BrandController::class,'restore']);
     Route::post('/brand/show_deleted',[BrandController::class,'show_deleted_records']);
+
+     //CategoryController CRUD
     Route::get('/category',[CategoryController::class,'index']);
      Route::post('/category/create',[CategoryController::class,'create']);
      Route::post('/category/update',[CategoryController::class,'update']);
      Route::post('/category/delete',[CategoryController::class,'delete']);
     Route::post('/category/restore',[CategoryController::class,'restore']);
     Route::post('/category/show_deleted',[CategoryController::class,'show_deleted_records']);
+
+     //ProductController CRUD
+    Route::get('/product',[ProductController::class,'index']);
+    Route::post('/product/create',[ProductController::class,'create']);
+
+
 });
 
   
-
