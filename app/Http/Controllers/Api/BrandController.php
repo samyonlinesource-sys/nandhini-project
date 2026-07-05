@@ -47,12 +47,11 @@ class BrandController extends Controller
     }
 
 
-    
     public function update(Request $request)
-    {
-        $settings = BrandModel::find($request->id);
+{
+     $Brands = BrandModel::find($request->id);
 
-        if (!$settings) {
+        if (!$Brands) {
             return response()->json(['message' => 'Brand not found'], 404);
         }
 
@@ -61,38 +60,59 @@ class BrandController extends Controller
             'brand_name' => 'required|string|max:255',
             'status' => 'required|string|max:255',
         ]);
+ 
+    // Update all request fields except id
+    $Brands->update($request->except('id'));
 
-        $settings->update([
-            'brand_code' => $request->brand_code,
-            'brand_name' => $request->brand_name,
-            'status'=>$request->status
-            // 'maintenance_mode' => $request->maintenance_mode,
-        ]);
+    return response()->json([
+        'status'  => true,
+        'message' => 'Brand Updated Successfully',
+        'data'    => $Brands->fresh()
+    ], 200);
+}
+   
+    public function delete(Request $request)
+    {
+        $Brand = BrandModel::findOrFail($request->id);
+        if($Brand->status == 'active'){
+            return response()->json(['message' => 'Active Brand cannot be deleted'], 404);
+        }
 
-        return response()->json(['message' => 'Brand updated successfully', 'settings' => $settings], 200);
+        if (!$Brand) {
+            return response()->json(['message' => 'Brand not found'], 404);
+        }
+
+        $Brand->delete();
+           
+        return response()->json(['message' => 'Brand deleted successfully', ], 200);
     }
-    // public function update(Request $request){
 
-            
-    //         $Brand = BrandModel::findorFail($request->id);
-            
-    //         $request->validate([
-    //                 'brand_code'=>'required|string',
-    //                 'brand_name'=>'required|string',
-                     
-    //         ]);
+    public function restore(Request $request)
+    {
+        $Brand = BrandModel::withTrashed()->findOrFail($request->id);
 
-    //         $Brand->update([
-    //                 'brand_code'=>$request->brand_code,
-    //                 'brand_name'=>$request->brand_name,
-    //                 //   'status' => 'active'
-    //         ]);
-            
+        if (!$Brand) {
+            return response()->json(['message' => 'Brand not found'], 404);
+        }
 
-    //         return response()->json([
-    //             'status' => true,
-    //             'meassage'=>'Brand Updated Successfully',
-    //             'data' => $Brand
-    //         ], 200);
-    // }
+        $Brand->restore();
+           
+        return response()->json(['message' => 'Brand restore successfully', ], 200);
+    }
+
+
+    public function show_deleted_records(Request $request)
+    {
+        $Brand = BrandModel::onlyTrashed()->get();
+
+        if (!$Brand) {
+            return response()->json(['message' => 'Brand not found'], 404);
+        }
+
+       // $Brand->delete();
+           
+        return response()->json(['message' => 'Deleted Brand records retrieved successfully','data'=>$Brand ], 200);
+    }
+
+
 }
