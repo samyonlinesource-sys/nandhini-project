@@ -5,8 +5,10 @@ namespace App\Models\Api;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Api\CategoryModel;
 use App\Models\Api\BrandModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class ProductModel extends Model
 {
+    use SoftDeletes;
     //
     protected $table = 'product';
     protected $fillable =['category_id','brand_id','user_id','user_name',
