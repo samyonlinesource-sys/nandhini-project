@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
+
 use App\Http\Controllers\Api\PurchaseController;
 
 
