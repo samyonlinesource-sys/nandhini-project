@@ -53,6 +53,10 @@ Route::middleware(['auth:api','nandhini'])->prefix('admin')->name('admin')->grou
      //ProductController CRUD
     Route::get('/product',[ProductController::class,'index']);
     Route::post('/product/create',[ProductController::class,'create']);
+     Route::post('/product/update',[ProductController::class,'update']);
+     Route::post('/product/delete',[ProductController::class,'delete']);
+    Route::post('/product/restore',[ProductController::class,'restore']);
+    Route::post('/product/show_deleted',[ProductController::class,'show_deleted_records']);
 
 
 });
