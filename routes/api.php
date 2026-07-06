@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\PurchaseController;
 
 
 use Illuminate\Http\Request;
@@ -55,8 +57,11 @@ Route::middleware(['auth:api','nandhini'])->prefix('admin')->name('admin')->grou
     Route::post('/product/restore',[ProductController::class,'restore']);
     Route::post('/product/show_deleted',[ProductController::class,'show_deleted_records']);
 
-
-
+//Purchase Controller
+Route::get('/purchase',[PurchaseController::class,'index']);
+Route::post('/purchase/status',[PurchaseController::class,'purchase_status']);
+Route::post('/purchase/create',[PurchaseController::class,'create']);
+Route::post('/purchase/update',[PurchaseController::class,'update']);
 });
 
   
