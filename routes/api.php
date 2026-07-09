@@ -63,6 +63,10 @@ Route::get('/purchase',[PurchaseController::class,'index']);
 Route::post('/purchase/status',[PurchaseController::class,'purchase_status']);
 Route::post('/purchase/create',[PurchaseController::class,'create']);
 Route::post('/purchase/update',[PurchaseController::class,'update']);
+Route::post('/purchase/delete',[PurchaseController::class,'delete']);
+Route::post('/purchase/restore',[PurchaseController::class,'restore']);
+Route::post('/purchase/show_deleted',[ProductController::class,'show_deleted_records']);
+
 });
 
   

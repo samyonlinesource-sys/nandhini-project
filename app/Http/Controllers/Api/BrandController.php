@@ -71,28 +71,53 @@ class BrandController extends Controller
 
         return response()->json(['message' => 'Brand updated successfully', 'settings' => $settings], 200);
     }
-    // public function update(Request $request){
+    
+public function delete(Request $request)
+{
+    $Brand = BrandModel::find($request->id);
 
-            
-    //         $Brand = BrandModel::findorFail($request->id);
-            
-    //         $request->validate([
-    //                 'brand_code'=>'required|string',
-    //                 'brand_name'=>'required|string',
-                     
-    //         ]);
+    if (!$Brand) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Brand not found'
+        ], 404);
+    }
+    $Brand->delete();
 
-    //         $Brand->update([
-    //                 'brand_code'=>$request->brand_code,
-    //                 'brand_name'=>$request->brand_name,
-    //                 //   'status' => 'active'
-    //         ]);
-            
+    return response()->json([
+        'status' => true,
+        'message' => 'Brand deleted successfully'
+    ], 200);
+}
 
-    //         return response()->json([
-    //             'status' => true,
-    //             'meassage'=>'Brand Updated Successfully',
-    //             'data' => $Brand
-    //         ], 200);
-    // }
+public function restore(Request $request)
+{
+    $Brand = BrandModel::withTrashed()->find($request->id);
+
+    if (!$Brand) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Brand not found'
+        ], 404);
+    }
+
+    $Brand->restore();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Brand restored successfully'
+    ], 200);
+}
+
+public function show_deleted_records()
+{
+    $Brand = BrandModel::onlyTrashed()->get();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Deleted Brand records retrieved successfully',
+        'data' => $Brand
+    ], 200);
+}
+
 }
