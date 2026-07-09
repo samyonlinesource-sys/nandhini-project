@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
-
+use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\PurchaseController;
 
 
@@ -63,6 +63,17 @@ Route::get('/purchase',[PurchaseController::class,'index']);
 Route::post('/purchase/status',[PurchaseController::class,'purchase_status']);
 Route::post('/purchase/create',[PurchaseController::class,'create']);
 Route::post('/purchase/update',[PurchaseController::class,'update']);
+
+Route::post('/stripe/payment',[StripeController::class,'payment']);
+Route::post('/stripe/payment/success',[StripeController::class,'paymentsuccess']);
+Route::post('/stripe/payment/fail',[StripeController::class,'paymentfail']);
+Route::get('/stripe/payment/paymentdetail',[StripeController::class,'paymentdetail']);
+
+Route::post('/stripe/payment/sales/',[StripeController::class,'paymentsales']);
+Route::post('/stripe/payment/sales/success',[StripeController::class,'payment_success_sales']);
+
+
+
 });
 
   
