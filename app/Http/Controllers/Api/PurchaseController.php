@@ -78,6 +78,72 @@ class PurchaseController extends Controller
         
 
     }
+   public function delete(Request $request)
+{
+    $purchase = PurchaseModel::find($request->id);
 
+    if (!$purchase) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Purchase not found'
+        ], 404);
+    }
+
+    $purchase->delete();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Purchase deleted successfully'
+    ], 200);
+}
+
+public function restore(Request $request)
+{
+    $purchase = PurchaseModel::onlyTrashed()->find($request->id);
+
+    if (!$purchase) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Deleted purchase not found'
+        ], 404);
+    }
+
+    $purchase->restore();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Purchase restored successfully',
+        'data' => $purchase
+    ], 200);
+}
+
+// public function show_deleted_records()
+// {
+//     $purchase = PurchaseModel::onlyTrashed()->get();
+
+//     return response()->json([
+//         'status' => true,
+//         'message' => 'Deleted Product records retrieved successfully',
+//         'data' => $purchase
+//     ], 200);
+// }
+
+public function show_deleted_records()
+    {
+        $purchase = PurchaseModel::onlyTrashed()->get();
+
+        if ($purchase->isEmpty()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'No deleted purchase records found'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Deleted purchase records retrieved successfully',
+            'data' => $purchase
+        ], 200);
+    }
 
 }

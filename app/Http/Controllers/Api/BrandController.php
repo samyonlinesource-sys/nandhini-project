@@ -71,41 +71,23 @@ class BrandController extends Controller
 
         return response()->json(['message' => 'Brand updated successfully', 'settings' => $settings], 200);
     }
-    // public function update(Request $request){
 
-            
-    //         $Brand = BrandModel::findorFail($request->id);
-            
-    //         $request->validate([
-    //                 'brand_code'=>'required|string',
-    //                 'brand_name'=>'required|string',
-                     
-    //         ]);
 
-    //         $Brand->update([
-    //                 'brand_code'=>$request->brand_code,
-    //                 'brand_name'=>$request->brand_name,
-    //                 //   'status' => 'active'
-    //         ]);
-            
-
-    //         return response()->json([
-    //             'status' => true,
-    //             'meassage'=>'Brand Updated Successfully',
-    //             'data' => $Brand
-    //         ], 200);
-    // }
-
+      
     public function delete(Request $request)
 {
     $category = BrandModel::find($request->id);
 
     if (!$category) {
+
         return response()->json([
             'status' => false,
             'message' => 'Brand not found'
         ], 404);
     }
+
+    $Brand->delete();
+
 
     // Get the brand from the category
     $brand = BrandModel::where('id', $category->brand_id)
@@ -121,11 +103,45 @@ class BrandController extends Controller
 
     $category->delete();
 
+
     return response()->json([
         'status' => true,
         'message' => 'Brand deleted successfully'
     ], 200);
 }
+
+
+public function restore(Request $request)
+{
+    $Brand = BrandModel::withTrashed()->find($request->id);
+
+    if (!$Brand) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Brand not found'
+        ], 404);
+    }
+
+    $Brand->restore();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Brand restored successfully'
+    ], 200);
+}
+
+public function show_deleted_records()
+{
+    $Brand = BrandModel::onlyTrashed()->get();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Deleted Brand records retrieved successfully',
+        'data' => $Brand
+    ], 200);
+}
+
+
     public function restore(Request $request)
 {
     $category = BrandModel::withTrashed()->find($request->id);
@@ -167,4 +183,5 @@ class BrandController extends Controller
         'data' => $categories
     ], 200);
 }
+
 }
