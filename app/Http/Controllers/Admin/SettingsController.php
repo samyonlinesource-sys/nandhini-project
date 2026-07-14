@@ -22,7 +22,21 @@ class SettingsController extends Controller
     }
     public function update(Request $request){
      $settings=SettingsModel::findOrFail($request->id);
-       $settings->update($request->except('id'));
+     $images =['company_logo','company_icon','favicon'];
+     foreach($images as $image){
+      if($request->hasfile($image)){
+        $request->validate([
+          $image=> 'nullable',
+        ]);
+        $img =$request->file($image);
+        $img_rename=time().'-'.$image.'-'.$img->getClientOriginalExtension();
+        $img->move(public_path('upload/settings'),$img_rename);
+        $settings->$image=$img_rename;
+      }
+     }
+       $settings->fill($request->except('id','company_logo','company_icon','favicon'));
+       $settings->save();
+
     return back()->withInput()->withErrors(
     'Success','Updated Sucessfully',
 );
