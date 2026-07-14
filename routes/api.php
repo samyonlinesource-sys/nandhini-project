@@ -27,7 +27,9 @@ Route::post('/store', [SettingsController::class, 'store']);
 Route::post('/view', [SettingsController::class, 'settingsview']);
 Route::post('/update', [SettingsController::class, 'update']);
 
+Route::post('/laravel/smtp',[SettingsController::class, 'test_mail']);
 
+Route::get('/sendotp',[UserController::class, 'sendotp']);
 Route::middleware(['auth:api','nandhini'])->prefix('admin')->name('admin')->group(function () {
    Route::get('/profile',[UserController::class,'profile']);
 
@@ -76,10 +78,9 @@ Route::get('/stripe/payment/paymentdetail',[StripeController::class,'paymentdeta
 
 Route::post('/stripe/payment/sales/',[StripeController::class,'paymentsales']);
 Route::post('/stripe/payment/sales/success',[StripeController::class,'payment_success_sales']);
-
-
-
-
 });
+
+
+
 
   

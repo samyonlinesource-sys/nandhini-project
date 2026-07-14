@@ -1,4 +1,4 @@
-@extends('admin.layouts.app');
+@extends('admin.layouts.login_app');
 @section('content');
 
 <body class="account-page">
