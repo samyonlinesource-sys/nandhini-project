@@ -17,9 +17,9 @@ class ProductModel extends Model
     ];
 
      public function brand(){
-        return $this->belongsTo(BrandModel::class);
+        return $this->belongsTo(BrandModel::class,'brand_id');
     }
       public function category(){
-        return $this->belongsTo(CategoryModel::class);
+        return $this->belongsTo(CategoryModel::class,'category_id');
     }
 }

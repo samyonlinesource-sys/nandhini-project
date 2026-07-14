@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\ProductController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -56,5 +57,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function (){
       Route::get('/settings/edit',[SettingsController::class,'edit'] )->name('system.settings');
       Route::get('/settings/company_settings',[SettingsController::class,'company_settings'] )->name('company.settings');
         Route::post('/settings/update',[SettingsController::class,'update'] )->name('settings.update');
+
+     Route::get('/product/index',[ProductController::class,'index'] )->name('product');
       
 });
