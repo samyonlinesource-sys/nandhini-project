@@ -11,5 +11,7 @@ class SettingsModel extends Model
         'version',
         'app_mode',
         'maintenance_mode',
+        'company_name','company_email','company_number','company_fax','company_website','company_logo','company_icon','favicon','company_address',
+        'country','state','city','postal_code'
     ];
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Api\SettingsModel;
+use Illuminate\Support\Facades\Mail;
 
 class SettingsController extends Controller
 {
@@ -73,5 +74,18 @@ class SettingsController extends Controller
             'status' => true,
             'data' => $settings
         ], 200);
+    }
+
+    public function test_mail(Request $request ){
+      $request->validate([
+        'email' => 'required| email'
+      ]);
+      Mail::raw('Test SMTP',function($message)use($request){
+      $message->to($request->email)->subject('Testing Mail');
+   });
+   return response()->json([
+     'status'=>true,
+     'message'=>'SMTP tested in Nandhini',
+   ],200);
     }
 }

@@ -44,7 +44,7 @@ if (!Hash::check($request->password, $level_check->password)) {
 if (Auth::guard('web')->attempt($credentials, $request->boolean('remember'))) {
     $request->session()->regenerate();
 
-    return redirect()->route('home')->with('success', 'Welcome Nandhini');
+    return redirect()->route('dashboard')->with('success', 'Welcome Nandhini');
 }
 
 return back()->withInput()->withErrors([

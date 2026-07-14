@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use App\Models\Api\SettingsModel;
+use Illuminate\Support\Facades\Mail;
+use App\Services\SmsService;
 
 class UserController extends Controller
 {
@@ -32,6 +34,10 @@ class UserController extends Controller
 
         $token=$user->createToken('API Token')->accessToken;
         //   $token = method_exists($user, 'createToken') ? $user->createToken('auth_token')->accessToken : null;
+
+        Mail::raw('You registered this account',function($message)use($user,$request){
+      $message->to($request->email)->subject('Account Create')->text("Welcome our Login Application. Your Login Creditional \n\n"."name:{$user->name}\n". "email:{$user->email}\n"."username:{$user->username}");
+   });
 
         return response()->json(['message' => 'User registered successfully', 'user' => $user, 'token'=>$token],201);
     }
@@ -85,7 +91,13 @@ class UserController extends Controller
        return response()->json(['message'=> 'Session valid. User logged in', 'is_logged_in' =>true, 'user_exists'=>'true', 'user_blocked'=>false, 'user_data' =>[$user_data], 'settings' =>$settings],200);
     }
 
-
+public function sendotp(Request $request,SmsService $smsService){
+    $request->validate(['mobile'=>'required']);
+    $otp_random = rand(100000,999999);
+    $result=$smsService->send_sms($request->country.$request->mobile,$otp_random);
+    return response()->json($result);
+    return response()->json(['otp'=>$otp_random,'result'=>$result]);
+}
 
 
 }
