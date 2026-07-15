@@ -13,6 +13,9 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
+    public function index(){
+        return view('admin.index');
+    }
  public function login(Request $request){
 
         $credentials=Validator::make($request->all(),[
@@ -20,8 +23,8 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
-       $level_check = UserModel::where('username', $request->username)
-    ->where('user_level', 1)
+       $level_check = UserModel::where('username', $request['username'])
+    ->whereIn('user_level',[1,2])
     ->first();
 
 if (!$level_check) {
@@ -44,12 +47,21 @@ if (!Hash::check($request->password, $level_check->password)) {
 if (Auth::guard('web')->attempt($credentials, $request->boolean('remember'))) {
     $request->session()->regenerate();
 
-    return redirect()->route('dashboard')->with('success', 'Welcome Nandhini');
+    return redirect()->route('admin.dashboard')->with('success', 'Welcome Nandhini');
 }
 
 return back()->withInput()->withErrors([
     'username' => 'Credential error',
 ]);
     
+}
+public function logout(Request $request){
+    Auth::guard('web')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();  /// csrf token anjd networking
+
+    return redirect()->route('login');
+
+
 }
 }

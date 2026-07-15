@@ -23,16 +23,14 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-   	
-	<!-- Datetimepicker CSS -->
-	<link rel="stylesheet" href="{{asset('assets/css/bootstrap-datetimepicker.min.css') }}">
 
-	<!-- animation CSS -->
-	<link rel="stylesheet" href="{{asset('assets/css/animate.css') }}">
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap-datetimepicker.min.css') }}">
 
-	<!-- Select2 CSS -->
-	<link rel="stylesheet" href="{{asset('assets/plugins/select2/css/select2.min.css') }}">
+    <!-- animation CSS -->
+    <link rel="stylesheet" href="{{asset('assets/css/animate.css') }}">
 
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="{{asset('assets/plugins/select2/css/select2.min.css') }}">
 
-	
 </head>

@@ -86,7 +86,7 @@ class BrandController extends Controller
         ], 404);
     }
 
-    $Brand->delete();
+    $category->delete();
 
 
     // Get the brand from the category
@@ -142,46 +142,46 @@ public function show_deleted_records()
 }
 
 
-    public function restore(Request $request)
-{
-    $category = BrandModel::withTrashed()->find($request->id);
+//     public function restore(Request $request)
+// {
+//     $category = BrandModel::withTrashed()->find($request->id);
 
-    if (!$category) {
-        return response()->json([
-            'status' => false,
-            'message' => 'Category not found'
-        ], 404);
-    }
+//     if (!$category) {
+//         return response()->json([
+//             'status' => false,
+//             'message' => 'Category not found'
+//         ], 404);
+//     }
 
-    $brand = BrandModel::where('id', $category->brand_id)
-                ->where('status', 'active')
-                ->first();
+//     $brand = BrandModel::where('id', $category->brand_id)
+//                 ->where('status', 'active')
+//                 ->first();
 
-    if (!$brand) {
-        return response()->json([
-            'status' => false,
-            'message' => 'Active Brand not found'
-        ], 404);
-    }
+//     if (!$brand) {
+//         return response()->json([
+//             'status' => false,
+//             'message' => 'Active Brand not found'
+//         ], 404);
+//     }
 
-    $category->restore();
+//     $category->restore();
 
-    return response()->json([
-        'status' => true,
-        'message' => 'Category restored successfully'
-    ], 200);
-}
+//     return response()->json([
+//         'status' => true,
+//         'message' => 'Category restored successfully'
+//     ], 200);
+// }
 
 
-    public function show_deleted_records()
-{
-    $categories = BrandModel::onlyTrashed()->get();
+//     public function show_deleted_records()
+// {
+//     $categories = BrandModel::onlyTrashed()->get();
 
-    return response()->json([
-        'status' => true,
-        'message' => 'Deleted Category records retrieved successfully',
-        'data' => $categories
-    ], 200);
-}
+//     return response()->json([
+//         'status' => true,
+//         'message' => 'Deleted Category records retrieved successfully',
+//         'data' => $categories
+//     ], 200);
+// }
 
 }

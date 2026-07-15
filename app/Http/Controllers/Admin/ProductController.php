@@ -15,4 +15,9 @@ class ProductController extends Controller
         $product = ProductModel::with('category','brand')->latest()->get();
         return view('admin.product_list',compact('product'));
     }
+    public function Details(Request $request ){
+        $product = ProductModel::find($request->id);
+        return view('admin.product_details',compact('product'));
+
+    }
 }
