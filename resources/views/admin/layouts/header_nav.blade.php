@@ -69,13 +69,18 @@
 									<h6><span><i data-feather="user" class="feather-16"></i></span>Customers</h6>
 									<ul class="customers">
 										<li>
-											<a href="javascript:void(0);">Aron Varu<img src="assets/img/profiles/avator1.jpg" alt="" class="img-fluid"></a>
+											<a href="javascript:void(0);">Aron Varu<img
+													src="assets/img/profiles/avator1.jpg" alt="" class="img-fluid"></a>
 										</li>
 										<li>
-											<a href="javascript:void(0);">Jonita<img src="assets/img/profiles/avatar-01.jpg" alt="" class="img-fluid"></a>
+											<a href="javascript:void(0);">Jonita<img
+													src="assets/img/profiles/avatar-01.jpg" alt=""
+													class="img-fluid"></a>
 										</li>
 										<li>
-											<a href="javascript:void(0);">Aaron<img src="assets/img/profiles/avatar-10.jpg" alt="" class="img-fluid"></a>
+											<a href="javascript:void(0);">Aaron<img
+													src="assets/img/profiles/avatar-10.jpg" alt=""
+													class="img-fluid"></a>
 										</li>
 									</ul>
 								</div>
@@ -187,7 +192,7 @@
 											<div class="media-body flex-grow-1">
 												<p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
 													changed the task name <span class="noti-title">Appointment booking
-													with payment gateway</span>
+														with payment gateway</span>
 												</p>
 												<p class="noti-time"><span class="notification-time">6 mins ago</span>
 												</p>
@@ -204,8 +209,8 @@
 											<div class="media-body flex-grow-1">
 												<p class="noti-details"><span class="noti-title">Misty Tison</span>
 													added <span class="noti-title">Domenic Houston</span> and <span
-													class="noti-title">Claire Mapes</span> to project <span
-													class="noti-title">Doctor available module</span>
+														class="noti-title">Claire Mapes</span> to project <span
+														class="noti-title">Doctor available module</span>
 												</p>
 												<p class="noti-time"><span class="notification-time">8 mins ago</span>
 												</p>
@@ -221,9 +226,11 @@
 											</span>
 											<div class="media-body flex-grow-1">
 												<p class="noti-details"><span class="noti-title">Rolland Webber</span>
-													completed task <span class="noti-title">Patient and Doctor video conferencing</span>
+													completed task <span class="noti-title">Patient and Doctor video
+														conferencing</span>
 												</p>
-												<p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+												<p class="noti-time"><span class="notification-time">12 mins ago</span>
+												</p>
 											</div>
 										</div>
 									</a>
@@ -238,7 +245,8 @@
 												<p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
 													added new task <span class="noti-title">Private chat module</span>
 												</p>
-												<p class="noti-time"><span class="notification-time">2 days ago</span></p>
+												<p class="noti-time"><span class="notification-time">2 days ago</span>
+												</p>
 											</div>
 										</div>
 									</a>
@@ -262,8 +270,9 @@
 								<img src="assets/img/profiles/avator1.jpg" alt="" class="img-fluid">
 							</span>
 							<span class="user-detail">
-								<span class="user-name">John Smilga</span>
-								<span class="user-role">Super Admin</span>
+								<span class="user-name">{{ Auth::user()->name ?? 'Guest' }}</span>
+								<span
+									class="user-role">{{ Auth::user()->user_level == 1 ? Auth::user()->email : 'Guest'}}</span>
 							</span>
 						</span>
 					</a>
@@ -278,10 +287,21 @@
 								</div>
 							</div>
 							<hr class="m-0">
-							<a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My Profile</a>
-							<a class="dropdown-item" href="general-settings.html"><i class="me-2" data-feather="settings"></i>Settings</a>
+							<a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
+								Profile</a>
+							<a class="dropdown-item" href="general-settings.html"><i class="me-2"
+									data-feather="settings"></i>Settings</a>
 							<hr class="m-0">
-							<a class="dropdown-item logout pb-0" href="signin.html"><img src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+							<a class="dropdown-item logout pb-0" href="{{ route('admin.logout') }}"
+								onclick="event.preventDefault();document.getElementById('logout-form').submit();"><img
+									src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+							<form id="logout-form" method="POST" , action="{{ route('admin.logout') }}"
+								style="display: none">
+								@csrf
+							</form>
+
+
+
 						</div>
 					</div>
 				</li>
@@ -290,7 +310,8 @@
 
 			<!-- Mobile Menu -->
 			<div class="dropdown mobile-user-menu">
-				<a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+				<a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+					aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 				<div class="dropdown-menu dropdown-menu-right">
 					<a class="dropdown-item" href="profile.html">My Profile</a>
 					<a class="dropdown-item" href="general-settings.html">Settings</a>
