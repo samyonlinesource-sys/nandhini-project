@@ -11,7 +11,8 @@ class DashboardController extends Controller
     // Display all users
     public function index(Request $request)
     {
-        $users = UserModel::get();
+        // $users = UserModel::get();  eloquent
+        $users =  "Select * from `user'";
 
         return response()->json([
             'status' => true,
