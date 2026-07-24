@@ -10,6 +10,6 @@ class BrandModel extends Model
     use SoftDeletes;
     protected $table='brands';
 
-    protected $fillable=['brand_code','brand_name','brand_image','description','status','inapp_view'];
+    protected $fillable=['brand_code','brand_name','brand_image','description','status','inapp_view','user_id'];
     
 }

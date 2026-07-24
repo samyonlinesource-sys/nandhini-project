@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\PurchaseController;
+use App\Http\Controllers\Api\GeoController;
+
 
 
 use Illuminate\Http\Request;
@@ -55,8 +57,8 @@ Route::middleware(['auth:api','nandhini'])->prefix('admin')->name('admin')->grou
      //ProductController CRUD
     Route::get('/product',[ProductController::class,'index']);
     Route::post('/product/create',[ProductController::class,'create']);
-     Route::post('/product/update',[ProductController::class,'update']);
-     Route::post('/product/delete',[ProductController::class,'delete']);
+    Route::post('/product/update',[ProductController::class,'update']);
+    Route::post('/product/delete',[ProductController::class,'delete']);
     Route::post('/product/restore',[ProductController::class,'restore']);
     Route::post('/product/show_deleted',[ProductController::class,'show_deleted_records']);
 
@@ -78,6 +80,9 @@ Route::get('/stripe/payment/paymentdetail',[StripeController::class,'paymentdeta
 
 Route::post('/stripe/payment/sales/',[StripeController::class,'paymentsales']);
 Route::post('/stripe/payment/sales/success',[StripeController::class,'payment_success_sales']);
+
+Route::get('/geolocation',[GeoController::class,'get']);
+
 });
 
 

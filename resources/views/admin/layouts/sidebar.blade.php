@@ -47,7 +47,9 @@
 									Products</span></a></li>
 						<li><a href="low-stocks.html"><i data-feather="trending-down"></i><span>Low Stocks</span></a>
 						</li>
-						<li><a href="category-list.html"><i data-feather="codepen"></i><span>Category</span></a></li>
+						<li><a href="{{ route('admin.category') }}"><i
+									data-feather="codepen"></i><span>Category</span></a>
+						</li>
 						<li><a href="sub-categories.html"><i data-feather="speaker"></i><span>Sub Category</span></a>
 						</li>
 						<li><a href="brand-list.html"><i data-feather="tag"></i><span>Brands</span></a></li>

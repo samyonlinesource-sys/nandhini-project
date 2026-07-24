@@ -6,15 +6,17 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\BrandController;
+
 
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Route::get('/admin', function () {
-//     return view('admin/index');
-// })->name('login');
+// Route::get('/brand-ajax', function () {
+//     return view('admin/brand_ajax');
+// });
 // Route::get('/admin/dashboard', function () {
 //     return view('admin/dashboard');
 // })->name('dashboard');
@@ -59,8 +61,6 @@ Route::get('/laravel/smtp', function(){
 });
 
 
-
-
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function (){
 
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
@@ -74,5 +74,9 @@ Route::post('/logout',[LoginController::class,'logout'])->name('logout');
      Route::get('/product/create',[ProductController::class,'index'] )->name('product');
 
      Route::get('/dashboard',[DashboardController::class,'index'] )->name('dashboard');
+
+     Route::resource('brands',BrandController::class);
+     Route::get('brands-data',[BrandController::class,'show_data'])->name('brands.data');
+
       
 });
